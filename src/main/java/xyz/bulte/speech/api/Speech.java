@@ -1,9 +1,8 @@
-package xyz.bulte.speech;
+package xyz.bulte.speech.api;
 
 import lombok.ToString;
 import org.jooq.lambda.tuple.Tuple;
 import org.jooq.lambda.tuple.Tuple2;
-import xyz.bulte.speech.sentences.Transform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ public class Speech {
 
     private List<Sentence> sentences;
 
-    @java.beans.ConstructorProperties({"sentences"})
     private Speech(List<Sentence> sentences) {
         this.sentences = sentences;
     }
@@ -31,7 +29,7 @@ public class Speech {
         return new SpeechBuilder();
     }
 
-    static class SpeechBuilder {
+    public static class SpeechBuilder {
         private List<Sentence> sentences = new ArrayList<>();
 
         public SpeechBuilder sentence(String sentence) {
@@ -84,5 +82,4 @@ public class Speech {
             return "Speech.SpeechBuilder(sentences=" + this.sentences + ")";
         }
     }
-
 }

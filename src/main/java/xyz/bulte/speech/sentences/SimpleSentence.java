@@ -4,7 +4,7 @@ package xyz.bulte.speech.sentences;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.NotImplementedException;
-import xyz.bulte.speech.Sentence;
+import xyz.bulte.speech.api.Sentence;
 
 /**
  * This is a simple sentence; there is no templating involved.

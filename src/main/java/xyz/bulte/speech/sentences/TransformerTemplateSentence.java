@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.lambda.tuple.Tuple;
-import xyz.bulte.speech.Sentence;
-import xyz.bulte.speech.sentences.helper.SentenceHelper;
+import xyz.bulte.speech.api.Sentence;
+import xyz.bulte.speech.api.Transform;
+import xyz.bulte.speech.helper.SentenceHelper;
+import xyz.bulte.speech.constant.Templating;
 
 @ToString
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class TransformerTemplateSentence<T extends Tuple> implements Sentence<T>
     public boolean isValid() {
         var data = getData();
 
-        int amountOfParametersForTemplatedValues = StringUtils.countMatches(getTemplate(), "{}");
+        int amountOfParametersForTemplatedValues = StringUtils.countMatches(getTemplate(), Templating.TEMPLATE);
         int amountOfTransformerFunctions = transformers.length;
 
         return amountOfParametersForTemplatedValues <= data.degree() + amountOfTransformerFunctions;
@@ -55,7 +57,7 @@ public class TransformerTemplateSentence<T extends Tuple> implements Sentence<T>
 
     private String extractTemplateIdentifier(Transform<T> transformer) {
         return transformer.getIdentifier()
-                .map(id -> "{" + id + "}")
-                .orElse("{}");
+                .map(id -> Templating.TEMPLATE_START + id + Templating.TEMPLATE_END)
+                .orElse(Templating.TEMPLATE);
     }
 }

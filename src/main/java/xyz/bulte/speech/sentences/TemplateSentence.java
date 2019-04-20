@@ -4,8 +4,8 @@ package xyz.bulte.speech.sentences;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.lambda.tuple.Tuple;
-import xyz.bulte.speech.Sentence;
-import xyz.bulte.speech.sentences.helper.SentenceHelper;
+import xyz.bulte.speech.api.Sentence;
+import xyz.bulte.speech.helper.SentenceHelper;
 
 @ToString
 public class TemplateSentence<T extends Tuple> implements Sentence<Tuple> {

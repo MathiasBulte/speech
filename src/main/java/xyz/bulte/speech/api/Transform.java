@@ -1,6 +1,4 @@
-package xyz.bulte.speech.sentences;
-
-import org.jooq.lambda.tuple.Tuple;
+package xyz.bulte.speech.api;
 
 import java.util.Optional;
 import java.util.function.Function;

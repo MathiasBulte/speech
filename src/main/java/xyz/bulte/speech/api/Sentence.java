@@ -1,4 +1,4 @@
-package xyz.bulte.speech;
+package xyz.bulte.speech.api;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.lambda.tuple.Tuple;
@@ -18,7 +18,6 @@ public interface Sentence<T> {
     }
 
     String asString();
-
 
     static Sentence of(String sentence) {
         return new SimpleSentence(sentence);

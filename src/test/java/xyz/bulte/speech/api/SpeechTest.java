@@ -1,16 +1,17 @@
-package xyz.bulte.speech;
+package xyz.bulte.speech.api;
 
 import org.jooq.lambda.tuple.Tuple1;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Test;
-import xyz.bulte.speech.sentences.Transform;
+import xyz.bulte.speech.api.Speech;
+import xyz.bulte.speech.api.Transform;
 
 import java.util.List;
 
 import static org.jooq.lambda.tuple.Tuple.tuple;
 import static org.junit.jupiter.api.Assertions.*;
-import static xyz.bulte.speech.sentences.Transform.of;
-import static xyz.bulte.speech.sentences.Transform.plural;
+import static xyz.bulte.speech.api.Transform.of;
+import static xyz.bulte.speech.api.Transform.plural;
 
 
 public class SpeechTest {
@@ -27,10 +28,13 @@ public class SpeechTest {
     @Test
     public void testEnumeration() {
         Speech speech = Speech.builder()
-                .enumeration("{} out of {} of the {} instances are down", List.of(tuple(1, 2, "alexa-service")))
+                .enumeration("{} {} {} {}", List.of(
+                        tuple("It's", "time", "to", "begin"),
+                        tuple("now", "count", "it", "in"),
+                        tuple("5", "6", "7", "8")))
                 .build();
 
-        assertEquals("1 out of 2 of the alexa-service instances are down.", speech.asString());
+        assertEquals("It's time to begin, now count it in and 5 6 7 8.", speech.asString());
     }
 
     @Test
@@ -38,7 +42,7 @@ public class SpeechTest {
         Speech build = Speech.builder()
                 .sentence("{} {} having trouble", tuple(2),
                         of(tuple -> tuple.v1 > 1, "application is", "applications are"))
-                .build();;
+                .build();
 
         assertEquals("2 applications are having trouble.", build.asString());
     }
@@ -108,13 +112,6 @@ public class SpeechTest {
                 .build();
 
         assertEquals("2 applications are having trouble and Mathias is the best.", speech.asString());
-    }
-
-    @Test
-    public void testCreationWithPluralTransformer() {
-        Speech.builder()
-//                .sentence("{} {} having trouble", 1, plural("application is", "applications are"))
-                .build();
     }
 
 }
