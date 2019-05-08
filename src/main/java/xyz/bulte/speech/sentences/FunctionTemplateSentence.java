@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.lambda.tuple.Tuple;
 import xyz.bulte.speech.api.Sentence;
+import xyz.bulte.speech.constant.Templating;
 import xyz.bulte.speech.helper.SentenceHelper;
 
 import java.util.function.Function;
@@ -31,10 +32,10 @@ public class FunctionTemplateSentence<T extends Tuple> implements Sentence<T> {
     public boolean isValid() {
         var data = getData();
 
-        int amountOfParametersForTemplatedValues = StringUtils.countMatches(getTemplate(), "{}");
+        int amountOfParametersForTemplatedValues = StringUtils.countMatches(getTemplate(), Templating.TEMPLATE);
         int amountOfTransformerFunctions = 1;
 
-        return amountOfParametersForTemplatedValues == data.degree() + amountOfTransformerFunctions;
+        return amountOfParametersForTemplatedValues <= data.degree() + amountOfTransformerFunctions;
     }
 
     @Override

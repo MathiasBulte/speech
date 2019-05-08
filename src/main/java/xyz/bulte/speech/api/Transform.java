@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Transform<T> implements Function<T, String> {
+public class Transform<T> {
 
     private Predicate<T> predicate;
     private String ifFalse;
@@ -40,7 +40,6 @@ public class Transform<T> implements Function<T, String> {
         return new Transform<>(data -> function.apply(data).intValue() > 1, whenSingular, whenPlural, identifier);
     }
 
-    @Override
     public String apply(T tuple) {
         if (predicate.test(tuple)) {
             return ifTrue;

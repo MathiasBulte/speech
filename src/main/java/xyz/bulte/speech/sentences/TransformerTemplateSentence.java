@@ -18,6 +18,12 @@ public class TransformerTemplateSentence<T extends Tuple> implements Sentence<T>
     private T data;
     private Transform<T>[] transformers;
 
+    public TransformerTemplateSentence(String template, T data, Transform<T> transformer) {
+        this.template = template;
+        this.data = data;
+        this.transformers = new Transform[]{transformer};
+    }
+
     @Override
     public String getTemplate() {
         return template;

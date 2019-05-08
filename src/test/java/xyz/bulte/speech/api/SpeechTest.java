@@ -1,5 +1,6 @@
 package xyz.bulte.speech.api;
 
+import org.jooq.lambda.tuple.Tuple;
 import org.jooq.lambda.tuple.Tuple1;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Test;
@@ -112,6 +113,25 @@ public class SpeechTest {
                 .build();
 
         assertEquals("2 applications are having trouble and Mathias is the best.", speech.asString());
+    }
+
+    @Test
+    public void testTransformerWhenSentenceOnlyHasTransformer() {
+        Transform<Tuple1<Integer>> of = of(tuple -> tuple.v1() > 20, "bad", "nice", "typeOfWeather");
+        Speech speech = Speech.builder()
+                .sentence("Good evening")
+                .enumeration("{} the highs will reach {} degrees Celsius",
+                        List.of(
+                                Tuple.tuple("today", "25"),
+                                Tuple.tuple("tomorrow", "22"),
+                                Tuple.tuple("tuesday", "23")
+                        ))
+                .sentence("Seems like it'll be very {typeOfWeather} weather", Tuple.tuple(25),
+                        of)
+                .build();
+
+        assertEquals("Good evening. today the highs will reach 25 degrees Celsius, tomorrow the highs will reach 22 degrees Celsius and tuesday the highs will reach 23 degrees Celsius. " +
+                "Seems like it'll be very nice weather.", speech.asString());
     }
 
 }

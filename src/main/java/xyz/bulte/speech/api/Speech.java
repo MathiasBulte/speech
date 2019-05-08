@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class Speech {
 
     private List<Sentence> sentences;
-
     private Speech(List<Sentence> sentences) {
         this.sentences = sentences;
     }

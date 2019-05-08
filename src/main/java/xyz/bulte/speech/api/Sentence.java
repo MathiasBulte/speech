@@ -27,12 +27,16 @@ public interface Sentence<T> {
         return new TemplateSentence<>(template, data);
     }
 
-    static <T extends Tuple> Sentence of(String template, T data, Function<T, String> transformer) {
-        return new FunctionTemplateSentence<>(template, data, transformer);
-    }
-
     static Sentence of(String template, List<Tuple> data) {
         return new EnumeratedSentence<>(template, data);
+    }
+
+    static <T extends Tuple> Sentence of(String template, T data, Transform<T> transformer) {
+        return new TransformerTemplateSentence<>(template, data, transformer);
+    }
+
+    static <T extends Tuple> Sentence of(String template, T data, Function<T, String> transformer) {
+        return new FunctionTemplateSentence<>(template, data, transformer);
     }
 
     static <T extends Tuple> Sentence of(String template, T data, Transform<T>[] transformers) {
