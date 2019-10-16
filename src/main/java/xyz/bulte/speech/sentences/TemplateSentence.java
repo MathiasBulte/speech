@@ -41,6 +41,6 @@ public class TemplateSentence<T extends Tuple> implements Sentence<Tuple> {
         }
 
         var tuple = getData();
-        return SentenceHelper.fillTemplateWithDataFromTuple(getTemplate(), tuple);
+        return SentenceHelper.fillTemplateWithData(getTemplate(), tuple);
     }
 }

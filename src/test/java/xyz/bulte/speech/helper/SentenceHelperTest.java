@@ -13,7 +13,7 @@ class SentenceHelperTest {
         var tuple = Tuple.tuple(5, 6, 7, 8);
         var expected = "5 6 7 8";
 
-        var result = SentenceHelper.fillTemplateWithDataFromTuple(template, tuple);
+        var result = SentenceHelper.fillTemplateWithData(template, tuple);
         assertEquals(expected, result);
     }
 
@@ -23,7 +23,7 @@ class SentenceHelperTest {
         var tuple = Tuple.tuple(5, 6, 7, 8);
         var expected = "5 6 7 8 {}";
 
-        var result = SentenceHelper.fillTemplateWithDataFromTuple(template, tuple);
+        var result = SentenceHelper.fillTemplateWithData(template, tuple);
         assertEquals(expected, result);
     }
 
@@ -33,7 +33,7 @@ class SentenceHelperTest {
         var tuple = Tuple.tuple(5, 6, 7, 8);
         var expected = "5 6 7";
 
-        var result = SentenceHelper.fillTemplateWithDataFromTuple(template, tuple);
+        var result = SentenceHelper.fillTemplateWithData(template, tuple);
         assertEquals(expected, result);
     }
 

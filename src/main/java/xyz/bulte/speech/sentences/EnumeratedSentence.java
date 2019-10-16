@@ -52,7 +52,7 @@ public class EnumeratedSentence<T extends Tuple> implements Sentence<List<T>> {
                 .collect(Collectors.toList());
         var functionalDelimiters = decideFunctionalDelimiters(listOfDelimiters);
 
-        return SentenceHelper.fillTemplateWithDataFromList(stringWithDelimiters, Templating.TECHNICAL_DELIMITER_WITH_LEADING_AND_TRAILING_SPACES, functionalDelimiters);
+        return SentenceHelper.fillTemplateWithData(stringWithDelimiters, Templating.TECHNICAL_DELIMITER_WITH_LEADING_AND_TRAILING_SPACES, functionalDelimiters);
     }
 
     private List<String> decideFunctionalDelimiters(List<String> listOfTechnicalDelimiters) {
@@ -79,7 +79,7 @@ public class EnumeratedSentence<T extends Tuple> implements Sentence<List<T>> {
     private String createStringWithTechnicalDelimiters() {
         return getData()
                 .stream()
-                .map(tuple -> SentenceHelper.fillTemplateWithDataFromTuple(template, tuple))
+                .map(tuple -> SentenceHelper.fillTemplateWithData(template, tuple))
                 .collect(Collectors.joining(Templating.TECHNICAL_DELIMITER_WITH_LEADING_AND_TRAILING_SPACES))
                 .strip();
     }

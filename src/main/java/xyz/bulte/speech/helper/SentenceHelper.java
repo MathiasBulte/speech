@@ -8,8 +8,9 @@ import java.util.List;
 
 public class SentenceHelper {
 
-    public static <T> String fillTemplateWithDataFromList(String template, String templateIdentifier, List<T> data) {
+    public static <T> String fillTemplateWithData(String template, String templateIdentifier, List<T> data) {
         var outputString = template;
+
         for (T value : data) {
             outputString = StringUtils.replaceOnce(outputString, templateIdentifier, value.toString());
         }
@@ -17,12 +18,12 @@ public class SentenceHelper {
         return outputString;
     }
 
-    public static String fillTemplateWithDataFromTuple(String template, Tuple tuple) {
-        return fillTemplateWithDataFromList(template, tuple.toList());
+    public static String fillTemplateWithData(String template, Tuple tuple) {
+        return fillTemplateWithData(template, tuple.toList());
     }
 
-    public static <T> String fillTemplateWithDataFromList(String template, List<T> data) {
-        return fillTemplateWithDataFromList(template, Templating.TEMPLATE, data);
+    public static <T> String fillTemplateWithData(String template, List<T> data) {
+        return fillTemplateWithData(template, Templating.TEMPLATE, data);
     }
 
     public static <T extends Tuple> boolean doesTupleMatchTemplate(String template, T inputTuple) {

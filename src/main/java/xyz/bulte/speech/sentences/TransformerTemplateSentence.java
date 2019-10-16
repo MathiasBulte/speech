@@ -50,7 +50,7 @@ public class TransformerTemplateSentence<T extends Tuple> implements Sentence<T>
         }
 
         T tuple = getData();
-        String filledTemplateWithDataFromTuples = SentenceHelper.fillTemplateWithDataFromTuple(template, tuple);
+        String filledTemplateWithDataFromTuples = SentenceHelper.fillTemplateWithData(template, tuple);
         String filledTemplateWithDataFromTransformer = filledTemplateWithDataFromTuples;
 
         for (Transform<T> transformer : transformers) {

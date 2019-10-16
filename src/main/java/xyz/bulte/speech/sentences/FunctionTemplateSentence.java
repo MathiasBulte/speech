@@ -48,7 +48,7 @@ public class FunctionTemplateSentence<T extends Tuple> implements Sentence<T> {
 
         String template = getTemplate();
 
-        String filledTemplateWithDataFromTuples = SentenceHelper.fillTemplateWithDataFromTuple(template, tuple);
+        String filledTemplateWithDataFromTuples = SentenceHelper.fillTemplateWithData(template, tuple);
         String filledTemplateWithDataFromTransformer = StringUtils.replaceOnce(filledTemplateWithDataFromTuples, "{}", function.apply(tuple));
 
         return filledTemplateWithDataFromTransformer;

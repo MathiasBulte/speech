@@ -18,12 +18,6 @@ public class Speech {
         this.sentences = sentences;
     }
 
-    public String asString() {
-        return sentences.stream()
-                .map(Sentence::asString)
-                .collect(Collectors.joining(". ", "", "."));
-    }
-
     public static SpeechBuilder builder() {
         return new SpeechBuilder();
     }
@@ -57,7 +51,7 @@ public class Speech {
             return this;
         }
 
-        public Speech build() {
+        public String build() {
             List<Sentence> invalidSentences = sentences
                     .stream()
                     .map(sentence -> Tuple.tuple(sentence, sentence.isValid()))
@@ -69,7 +63,9 @@ public class Speech {
                 throw new RuntimeException("Sentences that could not be parsed: " + invalidSentences);
             }
 
-            return new Speech(sentences);
+            return sentences.stream()
+                    .map(Sentence::asString)
+                    .collect(Collectors.joining(". ", "", "."));
         }
 
         public SpeechBuilder sentences(List<Sentence> sentences) {

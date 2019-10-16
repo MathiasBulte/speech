@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import xyz.bulte.speech.api.Speech;
 import xyz.bulte.speech.api.Transform;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.jooq.lambda.tuple.Tuple.tuple;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,73 +21,75 @@ public class SpeechTest {
 
     @Test
     public void testTemplateSentence() {
-        Speech speech = Speech.builder()
+        var speech = Speech.builder()
                 .sentence("{} application is having trouble", tuple(1))
                 .build();
 
-        assertEquals("1 application is having trouble.", speech.asString());
+        assertEquals("1 application is having trouble.", speech);
     }
 
     @Test
     public void testEnumeration() {
-        Speech speech = Speech.builder()
+        var speech = Speech.builder()
                 .enumeration("{} {} {} {}", List.of(
                         tuple("It's", "time", "to", "begin"),
                         tuple("now", "count", "it", "in"),
                         tuple("5", "6", "7", "8")))
                 .build();
 
-        assertEquals("It's time to begin, now count it in and 5 6 7 8.", speech.asString());
+        assertEquals("It's time to begin, now count it in and 5 6 7 8.", speech);
     }
 
     @Test
     public void testCreationWithTransformerFunctionWhenConditionIsTrue() {
-        Speech build = Speech.builder()
+        var speech = Speech.builder()
                 .sentence("{} {} having trouble", tuple(2),
                         of(tuple -> tuple.v1 > 1, "application is", "applications are"))
                 .build();
 
-        assertEquals("2 applications are having trouble.", build.asString());
+        assertEquals("2 applications are having trouble.", speech);
     }
 
     @Test
     public void testCreationWithTransformerFunctionWhenConditionIsFalse() {
-        Speech build = Speech.builder()
+        var speech = Speech.builder()
                 .sentence("{} {} having trouble", tuple(1),
                         of(tuple -> tuple.v1 > 1, "application is", "applications are"))
                 .build();
 
-        assertEquals("1 application is having trouble.", build.asString());
+        assertEquals("1 application is having trouble.", speech);
     }
 
     @Test
     public void testCreationWithTransformerFunctionWhenIdentifierIsPresent() {
-        Speech build = Speech.builder()
+        var speech = Speech.builder()
                 .sentence("{} {} having trouble", tuple(1),
                         new Transform<>(tuple -> tuple.v1 > 1, "application is", "applications are"))
                 .build();
 
-        assertEquals("1 application is having trouble.", build.asString());
+        assertEquals("1 application is having trouble.", speech);
     }
 
     @Test
     public void testCreationWithPluralTransformerFunctionWhenNotPlural() {
-        Speech speech = Speech.builder()
-                .sentence("{} {} having trouble", tuple(1),
+        var speech = Speech.builder()
+                .sentence("{} {} having trouble",
+                        tuple(1),
                         plural(Tuple1::v1, "application is", "applications are"))
                 .build();
 
-        assertEquals("1 application is having trouble.", speech.asString());
+        assertEquals("1 application is having trouble.", speech);
     }
 
     @Test
     public void testCreationWithPluralTransformerFunctionWhenItIsPlural() {
-        Speech build = Speech.builder()
-                .sentence("{} {} having trouble", tuple(2),
+        var speech = Speech.builder()
+                .sentence("{} {} having trouble",
+                        tuple(2),
                         plural(Tuple1::v1, "application is", "applications are"))
                 .build();
 
-        assertEquals("2 applications are having trouble.", build.asString());
+        assertEquals("2 applications are having trouble.", speech);
     }
 
     @Test
@@ -100,7 +104,7 @@ public class SpeechTest {
                 .build();
 
         assertEquals("2 applications are having trouble. 1 out of 2 of the alexa-service instances are down " +
-                "and 2 out of 4 of the adoption-service instances are down. Mathias is de beste.", speech.asString());
+                "and 2 out of 4 of the adoption-service instances are down. Mathias is de beste.", speech);
     }
 
     @Test
@@ -112,26 +116,25 @@ public class SpeechTest {
                 )
                 .build();
 
-        assertEquals("2 applications are having trouble and Mathias is the best.", speech.asString());
+        assertEquals("2 applications are having trouble and Mathias is the best.", speech);
     }
 
     @Test
     public void testTransformerWhenSentenceOnlyHasTransformer() {
-        Transform<Tuple1<Integer>> of = of(tuple -> tuple.v1() > 20, "bad", "nice", "typeOfWeather");
-        Speech speech = Speech.builder()
+        var speech = Speech.builder()
                 .sentence("Good evening")
                 .enumeration("{} the highs will reach {} degrees Celsius",
                         List.of(
-                                Tuple.tuple("today", "25"),
-                                Tuple.tuple("tomorrow", "22"),
-                                Tuple.tuple("tuesday", "23")
+                                tuple("today", 25),
+                                tuple("tomorrow", 22),
+                                tuple("tuesday", 23)
                         ))
-                .sentence("Seems like it'll be very {typeOfWeather} weather", Tuple.tuple(25),
-                        of)
+                .sentence("Seems like it'll be very {typeOfWeather} weather",
+                        tuple(25),
+                        of(tuple -> tuple.v1 > 20, "bad", "nice", "typeOfWeather"))
                 .build();
 
         assertEquals("Good evening. today the highs will reach 25 degrees Celsius, tomorrow the highs will reach 22 degrees Celsius and tuesday the highs will reach 23 degrees Celsius. " +
-                "Seems like it'll be very nice weather.", speech.asString());
+                "Seems like it'll be very nice weather.", speech);
     }
-
 }
