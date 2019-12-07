@@ -6,7 +6,7 @@
 
     <groupId>xyz.bulte</groupId>
     <artifactId>speech</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <lombok.version>1.18.10</lombok.version>
@@ -15,6 +15,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <jool.version>0.9.14</jool.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -75,4 +76,11 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Mathias Bulté Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/MathiasBulte/speech</url>
+        </repository>
+    </distributionManagement>
 </project>
