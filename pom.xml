@@ -15,6 +15,14 @@
         <maven.compiler.target>11</maven.compiler.target>
         <jool.version>0.9.14</jool.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -75,4 +83,11 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Mathias Bulté Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/MathiasBulte/speech</url>
+        </repository>
+    </distributionManagement>
 </project>

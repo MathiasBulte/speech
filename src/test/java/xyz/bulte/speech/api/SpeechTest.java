@@ -100,11 +100,10 @@ public class SpeechTest {
                 .enumeration("{} out of {} of the {} instances are down",
                         List.of(tuple(1, 2, "alexa-service"),
                                 tuple(2, 4, "adoption-service")))
-                .sentence("{} is de {}", tuple("Mathias", "beste"))
                 .build();
 
         assertEquals("2 applications are having trouble. 1 out of 2 of the alexa-service instances are down " +
-                "and 2 out of 4 of the adoption-service instances are down. Mathias is de beste.", speech);
+                "and 2 out of 4 of the adoption-service instances are down.", speech);
     }
 
     @Test
@@ -136,5 +135,24 @@ public class SpeechTest {
 
         assertEquals("Good evening. today the highs will reach 25 degrees Celsius, tomorrow the highs will reach 22 degrees Celsius and tuesday the highs will reach 23 degrees Celsius. " +
                 "Seems like it'll be very nice weather.", speech);
+    }
+
+    @Test
+    public void bla() {
+        String singular = Speech.builder()
+                .sentence("{} {} having trouble",
+                        tuple(1),
+                        plural(Tuple1::v1, "application is", "applications are"))
+                .build();
+
+        assertEquals("1 application is having trouble.", singular);
+
+        String plural = Speech.builder()
+                .sentence("{} {} having trouble",
+                        tuple(2),
+                        plural(Tuple1::v1, "application is", "applications are"))
+                .build();
+
+        assertEquals("2 applications are having trouble.", plural);
     }
 }
