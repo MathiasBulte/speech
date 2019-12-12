@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: 11
     - name: Build with Maven
-      run: mvn deploy -e -X -Dregistry=https://maven.pkg.github.com/MathiasBulte -Dtoken=${{ secrets.PACKAGE_UPLOAD_TOKEN }}
+      run: mvn deploy -Dregistry=https://maven.pkg.github.com/MathiasBulte -Dtoken=70709be0c8889a61ee8f95964bbffabd7001dc9d
